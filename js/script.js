@@ -28,13 +28,13 @@ createApp({
                 }
             ],
             activeItem: 0,
+            autoScroll: null,
         };
     },
     methods: {
         // show next image
         showNextImage: function() {
             if(this.activeItem < this.slides.length - 1) {
-                console.log(this.slides.length);
                 this.activeItem++;
             } else {
                 this.activeItem = 0;
@@ -51,5 +51,15 @@ createApp({
         activateImage: function(clickedIndex) {
         this.activeItem = clickedIndex;
         },
+        startAutoplay() {
+            this.autoScroll = setInterval(this.showNextImage, 3000);
+        },
+        stopAutoplay() {
+            clearInterval(this.autoScroll);
+            this.autoScroll = null;
+        }
     },
+    mounted() {
+        this.startAutoplay();
+    }
 }).mount('#app');
